@@ -1,0 +1,75 @@
+version: "2.0"
+
+stories:
+
+- story: happy_path + facility_type
+  steps:
+  - intent: greet
+  - action: find_facility_types
+  - intent: inform{"facility_type":"rbry-mqwu"}
+  - action: facility_form
+  - active_loop: facility_form
+  - active_loop: null
+  - intent: inform{"facility_id":4245}
+  - action: find_healthcare_address
+  - action: utter_address
+  - intent: thankyou
+  - action: utter_goodbye
+
+- story: happy_path2
+  steps:
+  - intent: search_provider{"location":"Austin", "facility_type":"rbry-mqwu"}
+  - action: facility_form
+  - active_loop: facility_form
+  - active_loop: null
+  - intent: inform{"facility_id":"450871"}
+  - action: find_healthcare_address
+  - action: utter_address
+  - intent: thankyou
+  - action: utter_noworries
+
+- story: happy path multiple requests
+  steps:
+  - intent: greet
+  - action: find_facility_types
+  - intent: inform{"facility_type":"rbry-mqwu"}
+  - action: facility_form
+  - active_loop: facility_form
+  - active_loop: null
+  - intent: inform{"facility_id":"747604"}
+  - action: find_healthcare_address
+  - action: utter_address
+  - intent: inform{"facility_type":"rbry-mqwu"}
+  - action: facility_form
+  - active_loop: facility_form
+  - active_loop: null
+  - intent: inform{"facility_id":4245}
+  - action: find_healthcare_address
+  - action: utter_address
+
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+
+- story: sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
+
+- story: sad path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_goodbye
